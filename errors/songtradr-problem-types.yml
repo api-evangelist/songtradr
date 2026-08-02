@@ -1,0 +1,69 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/songtradr-api-openapi.yml
+format: spring-boot-error
+notes: >-
+  Songtradr does NOT use RFC 9457 problem+json. Every error response is the Spring Boot default
+  error envelope, served as application/json against the ErrorResponse schema, and the OpenAPI
+  carries a worked example on every single error response. The envelope has no machine-readable
+  error code beyond the HTTP status — clients must branch on `status` and read `message` as prose.
+envelope:
+  media_type: application/json
+  schema: ErrorResponse
+  fields:
+  - {name: timestamp, type: string, format: date-time, description: When the error occurred}
+  - {name: status, type: integer, description: The HTTP status code, repeated in the body}
+  - {name: error, type: string, description: The HTTP reason phrase (e.g. Unauthorized)}
+  - {name: message, type: string, description: Human-readable detail message}
+  - {name: path, type: string, description: The request path that produced the error}
+  example:
+    timestamp: '2026-05-15T13:32:42.291+00:00'
+    status: 401
+    error: Unauthorized
+    message: a detailed error message
+    path: /api/v1/user/files
+problems:
+- status: 400
+  title: Bad Request
+  description: Request body or parameters failed validation.
+  operations: 9
+  source_operations:
+  - openapi/songtradr-api-openapi.yml#updatePassword
+  - openapi/songtradr-api-openapi.yml#signUp
+  - openapi/songtradr-api-openapi.yml#forgotPassword
+  - openapi/songtradr-api-openapi.yml#editMe
+  - openapi/songtradr-api-openapi.yml#login
+  - openapi/songtradr-api-openapi.yml#token
+- status: 401
+  title: Unauthorized
+  description: >-
+    Missing, expired or invalid bearer JWT. Re-authenticate via POST /api/v1/user/login and retry
+    with the returned jwtToken.
+  operations: 19
+  universal: true
+- status: 403
+  title: Forbidden
+  description: User is not allowed to sign up other users.
+  operations: 1
+  source_operations:
+  - openapi/songtradr-api-openapi.yml#signUp
+- status: 409
+  title: Conflict
+  description: User identification is not available (the requested account identity is taken).
+  operations: 1
+  source_operations:
+  - openapi/songtradr-api-openapi.yml#signUp
+- status: 429
+  title: Too Many Requests
+  description: >-
+    The 120 requests-per-minute quota was exceeded. See rate-limits/songtradr-rate-limits.yml.
+    Back off and retry; contact support@songtradr.com to request a higher limit.
+  operations: 19
+  universal: true
+- status: 500
+  title: Internal Server Error
+  description: Unhandled server-side failure. Safe to retry idempotent GET operations.
+  operations: 19
+  universal: true
+retryable: [429, 500]
+not_retryable: [400, 401, 403, 409]

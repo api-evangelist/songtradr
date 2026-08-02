@@ -1,0 +1,84 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/songtradr-api-openapi.yml, https://api.songtradr.com/v3/api-docs (info.description)
+notes: >-
+  Cross-cutting request/response semantics for the Songtradr API, derived from the live OpenAPI 3.1
+  description plus the authentication/rate-limiting guidance the provider publishes in info.description.
+  This is a Spring Boot service and its conventions are Spring's: Pageable query parameters, the
+  default Spring error envelope, and no idempotency contract.
+authentication:
+  style: bearer-jwt
+  scheme: bearer-jwt
+  header: 'Authorization: Bearer <jwtToken>'
+  obtain: POST /api/v1/user/login returns JwtTokenDTO.token
+  alternate: POST /api/v1/user/token (TokenRequest) issues a bearer JWT
+  account_provisioning: Contact support@songtradr.com for a free account, or sign up at https://www.songtradr.com/signup/personal
+  detail: authentication/songtradr-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, parameter or extension appears anywhere in the OpenAPI, and the API
+    description documents none. Write operations (login, token, sign-up, edit-me, update-password,
+    initUpload, deleteUserFile) are not safe to blind-retry. GET and DELETE are naturally idempotent
+    by HTTP method only.
+pagination:
+  style: page-number
+  implementation: Spring Data Pageable
+  params:
+  - {name: page, in: query, type: integer, default: 0, minimum: 0, description: Zero-based page index}
+  - {name: size, in: query, type: integer, default: 100, minimum: 1, description: Page size}
+  - {name: sort, in: query, type: array, description: 'property,(asc|desc) — multiple criteria supported'}
+  response_envelope: FileListDTO
+  response_fields: [files, currentPage, totalPages, totalElements]
+  operations: [userFiles]
+  note: >-
+    Only the file listing/search operation is paginated. Bulk recording lookups instead take a
+    comma-joined list of ids in the path ({ids}) and return an unpaginated array.
+field_expansion:
+  supported: false
+  note: >-
+    No sparse-fieldset or expand parameter. Response richness is instead selected by choosing the
+    endpoint variant — /user/recording/{ids} (medium), /{ids}/tagstrengths, /{ids}/taggrams.
+filtering:
+  style: query-parameter
+  note: >-
+    Semantic search filters are exposed as flat query parameters on the file/recording search
+    operations (ISRC and the musical-feature filter set). Allowed values for musical features are
+    published by GET /api/v1/allowedValues/musicalFeatures (allowedMusicalFeatures).
+metadata:
+  user_defined: false
+  note: Domain metadata is Songtradr's own music taxonomy, not free-form customer key/value metadata.
+request_tracing:
+  request_id_header: null
+  note: No request-id or correlation header is documented. Error bodies echo the request `path` only.
+versioning:
+  scheme: uri-path
+  current: v1
+  path_prefix: /api/v1
+  spec_version: 3.0.0
+  note: >-
+    The URI path version (v1) and the OpenAPI info.version (3.0.0) move independently; the client
+    library versions track info.version. See lifecycle/songtradr-lifecycle.yml.
+error_envelope:
+  format: spring-boot-error
+  rfc9457: false
+  media_type: application/json
+  fields: [timestamp, status, error, message, path]
+  catalog: errors/songtradr-problem-types.yml
+rate_limit_signaling:
+  documented_limit: 120 requests per minute
+  headers: none
+  signal: HTTP 429 with the standard error envelope
+  detail: rate-limits/songtradr-rate-limits.yml
+content_types:
+  request: [application/json, multipart/form-data]
+  response: [application/json, application/hal+json]
+  note: >-
+    204 No Content responses are declared as application/hal+json, a Spring HATEOAS artifact; no
+    hypermedia links are actually present in any 2xx payload schema.
+file_upload:
+  style: presigned-s3
+  flow: >-
+    POST /api/v1/user/file/{name}/initUpload returns a presigned S3 URL; the client PUTs the audio
+    directly to S3, then polls GET /api/v1/user/filesStatus until processing completes.

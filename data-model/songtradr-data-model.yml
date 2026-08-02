@@ -1,0 +1,66 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/songtradr-api-openapi.yml (components.schemas $ref graph)
+notes: >-
+  Entity-relationship graph derived mechanically from the 40 schemas in the Songtradr API OpenAPI.
+  Two domains meet here: the FILE domain (a rightsholder's own uploaded audio moving through
+  auto-tagging) and the RECORDING domain (Songtradr's music metadata core — titles, tracks, parties,
+  genres, tags and the model outputs that score them).
+domains:
+- name: user
+  description: Account, credentials and session.
+  entities: [UserDTO, SaveUserDTO, SignUpDTO, LoginDTO, JwtTokenDTO, TokenRequest, UpdatePasswordDTO,
+    ForgotPasswordDTO]
+- name: file
+  description: A rightsholder's uploaded audio file and its auto-tagging lifecycle.
+  entities: [FileDTO, FileSmallDTO, FileListDTO, FileWIthUrlDTO, FileUploadDTO, FilesSummaryDTO,
+    InitPutRecordingAudioDTO, ConfigIdentifierDTO, ConfigAccessDTO]
+- name: recording
+  description: The music-metadata core — a recording and everything attached to it.
+  entities: [RecordingMediumBaseDTO, RecordingMediumV24DTO, RecordingMinimalWithTaggramsDTO,
+    RecordingMinimalWithTagstrengthsDTO, TitleDTO, TrackDTO, RecordingPartyDTO, PartySmallDTO,
+    ContributorTypeDTO, GenreDTO, SimilarityVectorDto]
+- name: tagging
+  description: Model outputs — tags, per-tag strengths, time-localised taggrams, genre predictions.
+  entities: [TagDTO, RecordingTagSmallDTO, TagstrengthDTO, TaggramDTO, CategoryMinimalDTO,
+    MusicalFeaturesV24DTO, RecordingGenrePredictionV24DTO, TagsSummaryDTO, GenresSummaryDTO,
+    FieldSummaryDTO, SearchFilterValuesDTO]
+- name: error
+  description: The shared error envelope.
+  entities: [ErrorResponse]
+relationships:
+- {from: FileListDTO, to: FileDTO, kind: has_many, via: files}
+- {from: FileDTO, to: RecordingMediumBaseDTO, kind: has_one, via: recording}
+- {from: FileWIthUrlDTO, to: FileDTO, kind: has_one, via: file}
+- {from: FileUploadDTO, to: ConfigIdentifierDTO, kind: has_many, via: identifiers}
+- {from: FileUploadDTO, to: ConfigAccessDTO, kind: has_many, via: access}
+- {from: FilesSummaryDTO, to: FieldSummaryDTO, kind: has_many, via: fileDetailsSummary}
+- {from: FilesSummaryDTO, to: GenresSummaryDTO, kind: has_many, via: genreSummary}
+- {from: FilesSummaryDTO, to: TagsSummaryDTO, kind: has_many, via: tagSummary}
+- {from: FilesSummaryDTO, to: FieldSummaryDTO, kind: has_many, via: musicalFeaturesSummary}
+- {from: RecordingMediumBaseDTO, to: RecordingPartyDTO, kind: has_many, via: recordingPartyEntities}
+- {from: RecordingMediumBaseDTO, to: RecordingTagSmallDTO, kind: has_many, via: tags}
+- {from: RecordingMediumBaseDTO, to: TitleDTO, kind: has_many, via: titles}
+- {from: RecordingMediumBaseDTO, to: TrackDTO, kind: has_many, via: tracks}
+- {from: RecordingMediumBaseDTO, to: GenreDTO, kind: has_many, via: genres}
+- {from: RecordingMediumV24DTO, to: RecordingGenrePredictionV24DTO, kind: has_many, via: genrePredictions}
+- {from: RecordingMediumV24DTO, to: MusicalFeaturesV24DTO, kind: has_one, via: musicalFeatures}
+- {from: RecordingMinimalWithTaggramsDTO, to: TaggramDTO, kind: has_many, via: taggrams}
+- {from: RecordingMinimalWithTagstrengthsDTO, to: TagstrengthDTO, kind: has_many, via: tagstrengths}
+- {from: RecordingPartyDTO, to: PartySmallDTO, kind: has_one, via: party}
+- {from: RecordingPartyDTO, to: ContributorTypeDTO, kind: has_many, via: contributorTypes}
+- {from: RecordingTagSmallDTO, to: TagDTO, kind: has_one, via: tag}
+- {from: TagDTO, to: CategoryMinimalDTO, kind: has_many, via: categories}
+- {from: TagsSummaryDTO, to: CategoryMinimalDTO, kind: has_many, via: categories}
+identifiers:
+- {name: ISRC, entity: recording, description: International Standard Recording Code — the primary
+    cross-catalog recording key; a search parameter on userFiles and a path input to getSimilarityVector}
+- {name: songtradrTrackGuid, entity: recording, description: Songtradr's own recording/track identifier,
+    accepted interchangeably with ISRC by getSimilarityVector}
+- {name: objectKey, entity: file, description: Storage key for an uploaded user file — path key for
+    userFile and deleteUserFile}
+- {name: folderName, entity: file, description: Logical grouping of uploaded files — path key for
+    recordingsByFolderWithTagstrengths}
+counts:
+  schemas: 40
+  relationships: 23

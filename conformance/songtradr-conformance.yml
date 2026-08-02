@@ -1,0 +1,62 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/songtradr-api-openapi.yml, conventions/songtradr-conventions.yml,
+  errors/songtradr-problem-types.yml
+notes: >-
+  Standards conformance derived from the live OpenAPI description and the harvested conventions.
+  Songtradr publishes no compliance/certification program (no trust center, no SOC 2 / ISO 27001 /
+  GDPR posture page was found on the public surface), so no Compliance pointer is asserted.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: 'openapi: 3.1.0 served live at https://api.songtradr.com/v3/api-docs'
+- id: rfc6750-bearer-token
+  conforms: true
+  evidence: securityScheme bearer-jwt is type http / scheme bearer / bearerFormat JWT
+- id: rfc7519-jwt
+  conforms: true
+  evidence: login returns JwtTokenDTO.token used as the bearer credential
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme; credentials are exchanged directly for a JWT
+- id: openid-connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 403 on the API host
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors are application/json Spring Boot envelopes, not application/problem+json
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: no /.well-known/security.txt on any host (see well-known/songtradr-well-known.yml)
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation header documented; no deprecated operations in the spec
+- id: rfc6902-json-patch
+  conforms: false
+  evidence: updates use POST with a full DTO body, not PATCH
+- id: json-api
+  conforms: false
+  evidence: bespoke DTO envelopes, no JSON:API media type
+- id: pagination
+  conforms: true
+  evidence: Spring Data Pageable page/size/sort on userFiles; FileListDTO carries currentPage/totalPages/totalElements
+- id: idempotency
+  conforms: false
+  evidence: no Idempotency-Key header or parameter anywhere in the spec
+- id: rate-limit-headers
+  conforms: false
+  evidence: 120 rpm published in prose; no RateLimit-* response headers declared
+- id: isrc
+  conforms: true
+  evidence: ISRC is a first-class identifier — search parameter on userFiles and path input to getSimilarityVector
+- id: iswc
+  conforms: false
+  evidence: no ISWC field in any schema
+- id: ddex
+  conforms: false
+  evidence: no DDEX ERN/DSR message shapes; metadata is exposed as bespoke JSON DTOs
+compliance_program:
+  published: false
+  trust_center: null
+  certifications: []
+  evidence: probe-security-programs.py found no trust center and no disclosure program

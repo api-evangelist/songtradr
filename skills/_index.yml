@@ -1,0 +1,31 @@
+generated: '2026-08-02'
+method: generated
+source: openapi/songtradr-api-openapi.yml
+notes: >-
+  Packaged Agent Skills for the Songtradr API. Every step is grounded in an operationId that exists
+  verbatim in the harvested OpenAPI 3.1 description. Songtradr publishes no AGENTS.md or first-party
+  skill files; these are generated from the spec plus the conventions and error artifacts in this repo.
+skills:
+- file: songtradr-auto-tag-a-catalog.md
+  name: Auto-tag a music catalog with Songtradr
+  description: >-
+    Upload audio via the presigned-S3 flow, poll for auto-tagging completion, and read back the
+    generated tags, genres, musical features and tag strengths.
+  api: openapi/songtradr-api-openapi.yml
+  operations: [login, initiateUserFileUpload, userFilesStatus, userFiles, userFile, userFilesSummary]
+- file: songtradr-search-and-analyze-recordings.md
+  name: Search and analyze recordings with Songtradr
+  description: >-
+    Read the allowed musical-feature vocabulary, search the catalog with semantic filters, and pull
+    tag strengths, time-localised taggrams and similarity vectors per recording.
+  api: openapi/songtradr-api-openapi.yml
+  operations: [login, allowedMusicalFeatures, userFiles, recordingsMediumByIds,
+    recordingsByIdsWithTagstrengths, recordingsByIdsWithTaggrams,
+    recordingsByFolderWithTagstrengths, getSimilarityVector]
+- file: songtradr-manage-account-and-access.md
+  name: Manage a Songtradr account and API access
+  description: >-
+    Obtain and refresh bearer JWTs, read and update the profile with the full-DTO POST convention,
+    and run sign-up, password reset and the destructive operations that need human confirmation.
+  api: openapi/songtradr-api-openapi.yml
+  operations: [login, token, me, editMe, signUp, forgotPassword, updatePassword, deleteUserFile]

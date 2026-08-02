@@ -1,0 +1,43 @@
+generated: '2026-08-02'
+method: searched
+source: https://pypi.org/project/songtradr-api-client-python/, https://www.npmjs.com/package/songtradr-api-client,
+  https://rubygems.org/gems/songtradr_api_client_ruby
+notes: >-
+  Three first-party client libraries, all published by Songtradr and all generated from the same
+  Songtradr API OpenAPI description. Reference documentation for the Python and Ruby clients is
+  version-foldered in dedicated GitHub repos under the songtradr organization. No first-party
+  Java/Maven, .NET/NuGet, Go or PHP client was found on the public registries.
+packages:
+- language: python
+  registry: pypi
+  name: songtradr-api-client-python
+  version: 3.0.0
+  url: https://pypi.org/project/songtradr-api-client-python/
+  install: pip install songtradr-api-client-python
+  docs: https://github.com/songtradr/songtradr-python-api-client-docs
+  official: true
+- language: javascript
+  registry: npm
+  name: songtradr-api-client
+  version: 3.0.1
+  url: https://www.npmjs.com/package/songtradr-api-client
+  install: npm install songtradr-api-client
+  homepage: https://songtradr.com
+  official: true
+- language: ruby
+  registry: rubygems
+  name: songtradr_api_client_ruby
+  version: 2.1.0
+  url: https://rubygems.org/gems/songtradr_api_client_ruby
+  install: gem install songtradr_api_client_ruby
+  docs: https://github.com/songtradr/songtradr-ruby-api-client-docs
+  official: true
+registries_checked:
+- {registry: pypi, found: true}
+- {registry: npm, found: true}
+- {registry: rubygems, found: true}
+- {registry: maven-central, found: false}
+- {registry: nuget, found: false}
+- {registry: pkg.go.dev, found: false}
+- {registry: packagist, found: false}
+- {registry: crates.io, found: false}

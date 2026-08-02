@@ -1,0 +1,25 @@
+generated: '2026-08-02'
+method: searched
+source: https://api.songtradr.com/v3/api-docs (OpenAPI info.description, "Rate Limiting" section)
+notes: >-
+  Songtradr publishes a single flat account-level rate limit in the API description. The limit is
+  raised on request by contacting support. No RateLimit-* / X-RateLimit-* response headers are
+  declared anywhere in the OpenAPI, so a client's only runtime signal is the HTTP 429 response,
+  which every one of the 19 operations declares.
+rate_limits:
+- name: default
+  scope: account
+  limit_count: 120
+  limit_window: minute
+  description: 120 requests per minute across the API.
+  enforced_by: HTTP 429 Too Many Requests
+  increase: Contact support@songtradr.com to request a higher limit.
+headers:
+  documented: false
+  observed: []
+  note: No rate-limit response headers are documented in the OpenAPI or the API description.
+error_response:
+  status: 429
+  media_type: application/json
+  schema: ErrorResponse
+  catalog: errors/songtradr-problem-types.yml

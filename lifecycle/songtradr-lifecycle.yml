@@ -1,0 +1,49 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/songtradr-api-openapi.yml, https://registry.npmjs.org/songtradr-api-client,
+  https://github.com/songtradr/songtradr-python-api-client-docs
+notes: >-
+  Songtradr publishes no versioning policy, no deprecation policy, no SLA and no status page on any
+  public host (status.songtradr.com does not resolve). What can be established is the URI-path
+  version, the OpenAPI info.version, and the dated release series of the generated first-party client
+  libraries — which is the closest thing to a public release history the provider offers.
+versioning:
+  scheme: uri-path
+  current: v1
+  path_prefix: /api/v1
+  spec_version: 3.0.0
+  policy_url: null
+  note: >-
+    The path version has stayed at v1 while the OpenAPI info.version and the generated clients moved
+    1.x -> 2.x -> 3.x, so the client-library major version, not the URI, is the real compatibility marker.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: No operation in the OpenAPI is marked deprecated, and no deprecation policy is published.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  probed: [status.songtradr.com, trust.songtradr.com]
+  result: NXDOMAIN
+support:
+  email: support@songtradr.com
+  help_center: https://support.songtradr.com/hc/en-us
+  helpdesk: https://helpdesk.songtradr.com/
+client_release_history:
+  registry: npm
+  package: songtradr-api-client
+  source: https://registry.npmjs.org/songtradr-api-client
+  releases:
+  - {version: 1.17.0, date: '2024-01-08'}
+  - {version: 1.18.0, date: '2024-02-19'}
+  - {version: 2.0.0, date: '2024-03-04', breaking: true}
+  - {version: 2.1.0, date: '2024-04-08'}
+  - {version: 3.0.0, date: '2024-06-03', breaking: true}
+  - {version: 3.0.1, date: '2024-11-04'}
+  note: >-
+    The Ruby gem lags at 2.1.0; Python and JavaScript clients are both on 3.x. The Songtradr API
+    OpenAPI info.version (3.0.0) matches the 3.x client generation.

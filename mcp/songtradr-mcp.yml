@@ -1,0 +1,80 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/songtradr-api-openapi.yml
+status: candidate
+notes: >-
+  Songtradr publishes NO hosted or remote MCP server. Searches of the docs, the songtradr GitHub
+  organization (8 public repos, none MCP-related), npm and the public MCP registries found nothing
+  first-party. This file is a DERIVED candidate tool surface only — one tool per real OpenAPI
+  operationId, each inheriting its parameters and request body from the spec as its inputSchema.
+  It is NOT wired as a `type: MCPServer` pointer in apis.yml, because no server exists to point at.
+search:
+  hosted_server: null
+  registries_checked: [npm, mcp.so, mcpservers.org, github.com/songtradr]
+  result: none-found
+server:
+  name: songtradr
+  transport: http
+  url: null
+  auth: bearer JWT from POST /api/v1/user/login (see authentication/songtradr-authentication.yml)
+tools:
+- name: login
+  description: Exchange credentials for a bearer JWT.
+  source_operation: openapi/songtradr-api-openapi.yml#login
+- name: token
+  description: Generate a bearer JWT token.
+  source_operation: openapi/songtradr-api-openapi.yml#token
+- name: get_me
+  description: Get the authenticated user profile.
+  source_operation: openapi/songtradr-api-openapi.yml#me
+- name: edit_me
+  description: Update the authenticated user profile.
+  source_operation: openapi/songtradr-api-openapi.yml#editMe
+- name: sign_up
+  description: Create a new user account.
+  source_operation: openapi/songtradr-api-openapi.yml#signUp
+- name: forgot_password
+  description: Trigger a password reset email.
+  source_operation: openapi/songtradr-api-openapi.yml#forgotPassword
+- name: update_password
+  description: Change the authenticated user's password.
+  source_operation: openapi/songtradr-api-openapi.yml#updatePassword
+- name: init_file_upload
+  description: Initiate an audio upload and receive a presigned S3 URL for auto-tagging.
+  source_operation: openapi/songtradr-api-openapi.yml#initiateUserFileUpload
+- name: list_files
+  description: List and search your own uploaded files with semantic filters and pagination.
+  source_operation: openapi/songtradr-api-openapi.yml#userFiles
+- name: get_file
+  description: Get a single uploaded file by object key.
+  source_operation: openapi/songtradr-api-openapi.yml#userFile
+- name: delete_file
+  description: Delete an uploaded file by object key.
+  source_operation: openapi/songtradr-api-openapi.yml#deleteUserFile
+- name: get_files_status
+  description: Check auto-tagging processing status for your uploaded files.
+  source_operation: openapi/songtradr-api-openapi.yml#userFilesStatus
+- name: get_files_summary
+  description: Aggregate summary of your catalog — field, genre, tag and musical-feature rollups.
+  source_operation: openapi/songtradr-api-openapi.yml#userFilesSummary
+- name: get_recordings
+  description: Get recordings with medium-detail metadata by a list of ids.
+  source_operation: openapi/songtradr-api-openapi.yml#recordingsMediumByIds
+- name: get_recording_tagstrengths
+  description: Get recordings with per-tag strength scores by a list of ids.
+  source_operation: openapi/songtradr-api-openapi.yml#recordingsByIdsWithTagstrengths
+- name: get_recording_taggrams
+  description: Get recordings with time-localised taggrams by a list of ids.
+  source_operation: openapi/songtradr-api-openapi.yml#recordingsByIdsWithTaggrams
+- name: get_folder_tagstrengths
+  description: Get tag strengths for every recording in one of your folders.
+  source_operation: openapi/songtradr-api-openapi.yml#recordingsByFolderWithTagstrengths
+- name: get_similarity_vector
+  description: Get the similarity vector for a recording by ISRC or Songtradr track id.
+  source_operation: openapi/songtradr-api-openapi.yml#getSimilarityVector
+- name: get_allowed_musical_features
+  description: Reference list of allowed values for every musical-feature search filter.
+  source_operation: openapi/songtradr-api-openapi.yml#allowedMusicalFeatures
+coverage:
+  rest_operations: 19
+  tools_derived: 19

@@ -1,0 +1,15 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/songtradr-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearer-jwt
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: "To authenticate, you have to call POST https://api.songtradr.com/api/v1/user/login\
+    \ \nand use the response's jwtToken as a bearer Token in all following API calls."
+  sources:
+  - openapi/songtradr-api-openapi.yml

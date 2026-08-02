@@ -1,0 +1,75 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Songtradr API
+  version: 1.0.0
+extends: openapi/songtradr-api-openapi.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-source: openapi/songtradr-api-openapi.yml
+x-notes: >-
+  Non-destructive enhancements the API Evangelist enrichment pipeline derived for the Songtradr API.
+  The harvested spec is never mutated; apply this overlay to get the annotated version. The gaps
+  recorded here are the ones a follow-up conversation with Songtradr should close: no declared tags
+  object, no rate-limit response headers, no idempotency contract, and a non-RFC-9457 error envelope.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-08-02'
+    x-apievangelist-repo: https://github.com/api-evangelist/songtradr
+    x-api-id: songtradr-api
+    x-audience: external-partner
+- target: $.info
+  update:
+    x-rate-limit:
+      requests: 120
+      window: minute
+      scope: account
+      headers: none
+      increase-contact: support@songtradr.com
+- target: $.info
+  update:
+    x-error-envelope:
+      format: spring-boot-error
+      rfc9457: false
+      schema: ErrorResponse
+      fields: [timestamp, status, error, message, path]
+- target: $.info
+  update:
+    x-idempotency:
+      supported: false
+      note: No Idempotency-Key contract; only GET and DELETE are idempotent by HTTP method.
+- target: $
+  update:
+    tags:
+    - name: user
+      description: Account, session, uploaded files and the recordings derived from them.
+    - name: similarity-vector-controller
+      description: Similarity vectors for a recording, keyed by ISRC or Songtradr track id.
+    - name: allowed-values
+      description: Reference data — the allowed values for every musical-feature search filter.
+- target: $.paths['/api/v1/user/file/{name}/initUpload'].post
+  update:
+    x-agentic-access:
+      action-class: acting
+      consequence: write
+      audit: required
+    x-workflow-note: >-
+      Step 1 of the auto-tagging flow — returns a presigned S3 URL; PUT the audio directly to S3,
+      then poll userFilesStatus, then read userFiles.
+- target: $.paths['/api/v1/user/filesStatus'].get
+  update:
+    x-workflow-note: Step 2 of the auto-tagging flow — poll until processing completes.
+- target: $.paths['/api/v1/user/files'].get
+  update:
+    x-workflow-note: Step 3 of the auto-tagging flow — the tagged results, with semantic search filters.
+    x-pagination:
+      style: page-number
+      params: [page, size, sort]
+      response_fields: [currentPage, totalPages, totalElements]
+- target: $.paths['/api/v1/similarityVectors/{isrcOrTrackId}'].get
+  update:
+    x-identifier-accepts: [ISRC, songtradrTrackGuid]
+- target: $.components.securitySchemes['bearer-jwt']
+  update:
+    x-token-source: POST /api/v1/user/login -> JwtTokenDTO.token
+    x-account-provisioning: support@songtradr.com
