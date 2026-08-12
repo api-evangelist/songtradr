@@ -30,24 +30,16 @@ tags:
 - rights-management
 - audio
 apis:
-- name: Songtradr API
-  description: >-
-    JWT-authenticated REST API for deep music metadata and auto-tagging. Log in via POST /api/v1/user/login to obtain a
-    bearer JWT, then manage your account and musicube cloud data, initiate presigned-S3 audio uploads for auto-tagging,
-    poll file processing status, and retrieve recordings with musical features, genre predictions, tags, taggrams and
-    tag strengths. Also exposes similarity vectors by ISRC/track id and the allowed-values reference for musical
-    features. Rate limited to 120 requests per minute.
+- aid: songtradr:songtradr-allowed-values-api
+  name: Songtradr Allowed Values API
+  description: The allowed-values API from Songtradr — 1 operation(s) for allowed-values.
   humanURL: https://api.songtradr.com/swagger-ui.html
   baseURL: https://api.songtradr.com
   tags:
-  - music-metadata
-  - audio-tagging
-  - semantic-search
-  - music
-  - machine-learning
+  - allowed-values
   properties:
   - type: OpenAPI
-    url: openapi/songtradr-api-openapi.yml
+    url: openapi/songtradr-allowed-values-api-openapi.yml
   - type: Documentation
     url: https://api.songtradr.com/swagger-ui.html
   - type: APIReference
@@ -60,8 +52,51 @@ apis:
     url: errors/songtradr-problem-types.yml
   - type: DataModel
     url: data-model/songtradr-data-model.yml
-  - type: Overlay
-    url: overlays/songtradr-api-overlay.yaml
+- aid: songtradr:songtradr-similarity-vector-controller-api
+  name: Songtradr Similarity Vector Controller API
+  description: >-
+    The similarity-vector-controller API from Songtradr — 1 operation(s) for similarity-vector-controller.
+  humanURL: https://api.songtradr.com/swagger-ui.html
+  baseURL: https://api.songtradr.com
+  tags:
+  - similarity-vector-controller
+  properties:
+  - type: OpenAPI
+    url: openapi/songtradr-similarity-vector-controller-api-openapi.yml
+  - type: Documentation
+    url: https://api.songtradr.com/swagger-ui.html
+  - type: APIReference
+    url: https://api.songtradr.com/v3/api-docs
+  - type: Authentication
+    url: authentication/songtradr-authentication.yml
+  - type: Conventions
+    url: conventions/songtradr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/songtradr-problem-types.yml
+  - type: DataModel
+    url: data-model/songtradr-data-model.yml
+- aid: songtradr:songtradr-user-api
+  name: Songtradr User API
+  description: The user API from Songtradr — 15 operation(s) for user.
+  humanURL: https://api.songtradr.com/swagger-ui.html
+  baseURL: https://api.songtradr.com
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/songtradr-user-api-openapi.yml
+  - type: Documentation
+    url: https://api.songtradr.com/swagger-ui.html
+  - type: APIReference
+    url: https://api.songtradr.com/v3/api-docs
+  - type: Authentication
+    url: authentication/songtradr-authentication.yml
+  - type: Conventions
+    url: conventions/songtradr-conventions.yml
+  - type: ErrorCatalog
+    url: errors/songtradr-problem-types.yml
+  - type: DataModel
+    url: data-model/songtradr-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -71,6 +106,8 @@ maintainers:
   email: info@songtradr.com
   url: https://www.songtradr.com/
 common:
+- type: MCPServer
+  url: mcp/songtradr-mcp.yml
 - type: AgenticAccess
   url: agentic-access/songtradr-agentic-access.yml
 - type: DomainSecurity
