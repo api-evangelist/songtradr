@@ -1,0 +1,268 @@
+{
+  "item": [
+    {
+      "id": "26edab4f-b10d-4b81-94ff-5a38c58b3401",
+      "name": "allowed-values",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5cfb4f11-ab30-4373-9a72-79299253f993",
+          "name": "Allowed values for music descriptive parameters to be used in the searchAll endpoint.",
+          "request": {
+            "name": "Allowed values for music descriptive parameters to be used in the searchAll endpoint.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "allowedValues",
+                "musicalFeatures"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "responseSize",
+                  "value": "s",
+                  "description": "Size the response should have. Deprecated because there is no difference in the response size starting with taxonomyVersion v2.4"
+                },
+                {
+                  "disabled": false,
+                  "key": "taxonomyVersion",
+                  "value": "v2_4",
+                  "description": "The version of the AI taxonomy to use."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "236db375-4576-4631-8bac-00e7afd9fd0c",
+              "name": "Retrieved searchFilters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "allowedValues",
+                    "musicalFeatures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "responseSize",
+                      "value": "s"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "v2_4"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"arousal\": [\n    \"string\",\n    \"string\"\n  ],\n  \"audienceAge\": [\n    \"string\",\n    \"string\"\n  ],\n  \"audienceGender\": [\n    \"string\",\n    \"string\"\n  ],\n  \"audienceRegion\": [\n    \"string\",\n    \"string\"\n  ],\n  \"brandAttributes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"channelSuitability\": [\n    \"string\",\n    \"string\"\n  ],\n  \"content\": [\n    \"string\",\n    \"string\"\n  ],\n  \"curateability\": [\n    \"string\",\n    \"string\"\n  ],\n  \"dominantInstrument\": [\n    \"string\",\n    \"string\"\n  ],\n  \"energy\": [\n    \"string\",\n    \"string\"\n  ],\n  \"engagement\": [\n    \"string\",\n    \"string\"\n  ],\n  \"grooviness\": [\n    \"string\",\n    \"string\"\n  ],\n  \"groovyness\": [\n    \"string\",\n    \"string\"\n  ],\n  \"harmony\": [\n    \"string\",\n    \"string\"\n  ],\n  \"key\": [\n    \"string\",\n    \"string\"\n  ],\n  \"languageOfPerformance\": [\n    \"string\",\n    \"string\"\n  ],\n  \"loudness\": [\n    \"string\",\n    \"string\"\n  ],\n  \"moodPlayer\": [\n    \"string\",\n    \"string\"\n  ],\n  \"originDecade\": [\n    \"string\",\n    \"string\"\n  ],\n  \"originRegion\": [\n    \"string\",\n    \"string\"\n  ],\n  \"performanceRating\": [\n    \"string\",\n    \"string\"\n  ],\n  \"pleasantness\": [\n    \"string\",\n    \"string\"\n  ],\n  \"pretzelStationSuitability\": [\n    \"string\",\n    \"string\"\n  ],\n  \"primaryMoodCluster\": [\n    \"string\",\n    \"string\"\n  ],\n  \"primarySoundCharacter\": [\n    \"string\",\n    \"string\"\n  ],\n  \"productionRating\": [\n    \"string\",\n    \"string\"\n  ],\n  \"recordingEnvironment\": [\n    \"string\",\n    \"string\"\n  ],\n  \"rhythm\": [\n    \"string\",\n    \"string\"\n  ],\n  \"roughness\": [\n    \"string\",\n    \"string\"\n  ],\n  \"scale\": [\n    \"string\",\n    \"string\"\n  ],\n  \"secondaryAudienceAge\": [\n    \"string\",\n    \"string\"\n  ],\n  \"secondaryAudienceRegion\": [\n    \"string\",\n    \"string\"\n  ],\n  \"secondaryInstrument\": [\n    \"string\",\n    \"string\"\n  ],\n  \"secondaryMoodCluster\": [\n    \"string\",\n    \"string\"\n  ],\n  \"secondaryMoodPlayer\": [\n    \"string\",\n    \"string\"\n  ],\n  \"songRating\": [\n    \"string\",\n    \"string\"\n  ],\n  \"soundGeneration\": [\n    \"string\",\n    \"string\"\n  ],\n  \"space\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tempo\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tertiaryAudienceAge\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tertiaryAudienceRegion\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tertiaryInstrument\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tertiaryMoodCluster\": [\n    \"string\",\n    \"string\"\n  ],\n  \"texture\": [\n    \"string\",\n    \"string\"\n  ],\n  \"timbre\": [\n    \"string\",\n    \"string\"\n  ],\n  \"tonality\": [\n    \"string\",\n    \"string\"\n  ],\n  \"useCase\": [\n    \"string\",\n    \"string\"\n  ],\n  \"valence\": [\n    \"string\",\n    \"string\"\n  ],\n  \"vocals\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "619c6967-7679-42b9-aac2-c234c2c1a2b8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "allowedValues",
+                    "musicalFeatures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "responseSize",
+                      "value": "s"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "v2_4"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-05-15T13:32:42.291+00:00\",\n  \"status\": 401,\n  \"error\": \"Unauthorized\",\n  \"message\": \"a detailed error message\",\n  \"path\": \"/api/v1/allowedValues/musicalFeatures\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51f3bea4-c4e5-41dd-98ca-4e08a3534662",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "allowedValues",
+                    "musicalFeatures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "responseSize",
+                      "value": "s"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "v2_4"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-05-15T13:32:42.291+00:00\",\n  \"status\": 429,\n  \"error\": \"Too Many Requests\",\n  \"message\": \"a detailed error message\",\n  \"path\": \"/api/v1/allowedValues/musicalFeatures\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90bc12a4-4cd5-41ab-9548-0fe8ea0893a1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "allowedValues",
+                    "musicalFeatures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "responseSize",
+                      "value": "s"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "v2_4"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-05-15T13:32:42.291+00:00\",\n  \"status\": 500,\n  \"error\": \"Internal Server Error\",\n  \"message\": \"a detailed error message\",\n  \"path\": \"/api/v1/allowedValues/musicalFeatures\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.songtradr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1737f8dd-9ead-4cb8-b76c-01be34c6d2da",
+    "name": "Songtradr Allowed Values API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the Songtradr API. Use it to retrieve deep music metadata and trigger processes like auto-tagging.\n\nYou can also use the API to manage your account and musicube cloud data.\n\n**Authentication**\n\n1. Reach out to support@songtradr.com to receive a free account or use your login data if you are already signed up.\n\n2. To authenticate, you need to login via the POST /api/v1/user/login endpoint.\n\n3. The endpoint responds with a jwtToken which you can use in all following API requests as a bearer token.\n\n**Rate Limiting**\n\nThe current limit is 120 Requests per minute. Reach out to us via support@songtradr.com if you need to request more.\n\n**Getting Started with auto-tagging**\n\n1. If you want to get your own files auto-tagged, use the POST /api/v1/user/file/{name}/initUpload endpoint. It responds with a presigned S3 link where you can upload your file.\n2. You can check the processing status of your file via the GET /api/v1/user/file/{name}/filesStatus endpoint.\n3. As soon as processing is done, you can request the generated data via the GET /api/v1/user/files endpoint.\n\n**Getting Started with search**\n\nYou can either search the released music via the /public/recording endpoints or your own private uploaded music via the /user/file/ endpoints.\n\n1. If you want to search the world's released music, a good starting point is the GET /api/v1/public/recording/search endpoint. Please find the extensive list of parameters that serve as semantic search filters.\n2. If you want to search your own previously uploaded music, a good starting point is the GET GET /api/v1/user/files endpoint. It has the same extensive list of parameters that serve as semantic search filters.\n\nContact Support:\n Name: Songtradr Inc.\n Email: info@songtradr.com",
+      "type": "text/plain"
+    }
+  }
+}

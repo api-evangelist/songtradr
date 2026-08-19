@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Songtradr Allowed Values API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "allowed-values",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Allowed values for music descriptive parameters to be used in the searchAll endpoint.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/allowedValues/musicalFeatures",
+            "params": [
+              {
+                "name": "responseSize",
+                "value": "",
+                "type": "query",
+                "description": "Size the response should have. Deprecated because there is no difference in the response size starting with taxonomyVersion v2.4"
+              },
+              {
+                "name": "taxonomyVersion",
+                "value": "v2_4",
+                "type": "query",
+                "description": "The version of the AI taxonomy to use."
+              }
+            ]
+          },
+          "docs": "Allowed values for music descriptive parameters to be used in the searchAll endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

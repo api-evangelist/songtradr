@@ -1,0 +1,555 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Songtradr User API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "user",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update password by using the password reset token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.songtradr.com/api/v1/user/update-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update password by using the password reset token"
+        },
+        {
+          "info": {
+            "name": "Generates a new JWT token for the given refresh token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.songtradr.com/api/v1/user/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generates a new JWT token for the given refresh token"
+        },
+        {
+          "info": {
+            "name": "Sign up a new user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.songtradr.com/api/v1/user/sign-up",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sign up a new user."
+        },
+        {
+          "info": {
+            "name": "Details for a logged-in user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/me",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Details for a logged-in user"
+        },
+        {
+          "info": {
+            "name": "Edit details for a logged-in user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.songtradr.com/api/v1/user/me",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Edit details for a logged-in user"
+        },
+        {
+          "info": {
+            "name": "Login to generate a bearer token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.songtradr.com/api/v1/user/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Login to generate a bearer token."
+        },
+        {
+          "info": {
+            "name": "Send a password reset email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.songtradr.com/api/v1/user/forgot-password",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send a password reset email"
+        },
+        {
+          "info": {
+            "name": "Initialize a file upload. Responds with an URL where the file can be uploaded.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.songtradr.com/api/v1/user/file/:name/initUpload",
+            "params": [
+              {
+                "name": "name",
+                "value": "FileName.mp3",
+                "type": "path",
+                "description": "The Name of the file that will be uploaded"
+              },
+              {
+                "name": "folder",
+                "value": "FolderName",
+                "type": "query",
+                "description": "The Name of the folder that the file will be placed in"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initialize a file upload. Responds with an URL where the file can be uploaded."
+        },
+        {
+          "info": {
+            "name": "Recordings by IDs with a medium sized response.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/recording/:ids",
+            "params": [
+              {
+                "name": "ids",
+                "value": "GBAHT0108619",
+                "type": "path",
+                "description": "Comma seperated list of IDs. Can be ISRCs or proprietary IDs"
+              },
+              {
+                "name": "globalView",
+                "value": "true",
+                "type": "query",
+                "description": "Show not only user recordings."
+              },
+              {
+                "name": "taxonomyVersion",
+                "value": "v2_4",
+                "type": "query",
+                "description": "The version of the AI taxonomy to use."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index (0..N)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Recordings by IDs with a medium sized response."
+        },
+        {
+          "info": {
+            "name": "Strengths as numerical representations for AI generated moods, musical features and more for recordings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/recording/:ids/tagstrengths",
+            "params": [
+              {
+                "name": "ids",
+                "value": "USUM71703692",
+                "type": "path",
+                "description": "Comma seperated list of IDs. Can be ISRCs or proprietary IDs"
+              },
+              {
+                "name": "categoryName",
+                "value": "moodCluster",
+                "type": "query",
+                "description": "Show only tagstrengths for one category."
+              },
+              {
+                "name": "tagName",
+                "value": "energetic",
+                "type": "query",
+                "description": "Show only tagstrengths for one tag."
+              },
+              {
+                "name": "genreName",
+                "value": "Ska",
+                "type": "query",
+                "description": "Show only tagstrengths for one genre."
+              },
+              {
+                "name": "globalView",
+                "value": "true",
+                "type": "query",
+                "description": "Show tagstrengths not only for user recordings."
+              },
+              {
+                "name": "taxonomyVersion",
+                "value": "v2_4",
+                "type": "query",
+                "description": "The version of the AI taxonomy to use."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Strengths as numerical representations for AI generated moods, musical features and more for recordings."
+        },
+        {
+          "info": {
+            "name": "Timeseries of AI generated moods, musical features and more for a list of recordings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/recording/:ids/taggrams",
+            "params": [
+              {
+                "name": "ids",
+                "value": "USUM71703692",
+                "type": "path",
+                "description": "Comma seperated list of IDs. Can be ISRCs or proprietary IDs"
+              },
+              {
+                "name": "categoryName",
+                "value": "moodCluster",
+                "type": "query",
+                "description": "Show only taggrams for one category."
+              },
+              {
+                "name": "tagName",
+                "value": "energetic",
+                "type": "query",
+                "description": "Show only taggrams for one tag."
+              },
+              {
+                "name": "genreName",
+                "value": "Ska",
+                "type": "query",
+                "description": "Show only taggrams for one genre."
+              },
+              {
+                "name": "fromTimestamp",
+                "value": "16",
+                "type": "query",
+                "description": "Show only taggrams data starting from from this timestamp in seconds."
+              },
+              {
+                "name": "toTimestamp",
+                "value": "32",
+                "type": "query",
+                "description": "Show only taggrams data before this timestamp in seconds."
+              },
+              {
+                "name": "fillWithZero",
+                "value": "true",
+                "type": "query",
+                "description": "If set to true, empty timeseries are filled with timeseries of 0.0 values."
+              },
+              {
+                "name": "globalView",
+                "value": "true",
+                "type": "query",
+                "description": "Show taggrams not only for user recordings"
+              },
+              {
+                "name": "taxonomyVersion",
+                "value": "v2_4",
+                "type": "query",
+                "description": "The version of the AI taxonomy to use."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Timeseries of AI generated moods, musical features and more for a list of recordings."
+        },
+        {
+          "info": {
+            "name": "Strengths as numerical representations for AI generated moods, musical features and more for recordings in your folder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/folder/:folderName/tagstrengths",
+            "params": [
+              {
+                "name": "folderName",
+                "value": "Default",
+                "type": "path",
+                "description": "Folder name"
+              },
+              {
+                "name": "categoryName",
+                "value": "moodCluster",
+                "type": "query",
+                "description": "Show only taggrams for one category."
+              },
+              {
+                "name": "tagName",
+                "value": "energetic",
+                "type": "query",
+                "description": "Show only taggrams for one tag."
+              },
+              {
+                "name": "genreName",
+                "value": "Ska",
+                "type": "query",
+                "description": "Show only taggrams for one genre."
+              },
+              {
+                "name": "taxonomyVersion",
+                "value": "v2_4",
+                "type": "query",
+                "description": "The version of the AI taxonomy to use."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index (0..N)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Strengths as numerical representations for AI generated moods, musical features and more for recordings in your folder."
+        },
+        {
+          "info": {
+            "name": "List and search your own files.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/files",
+            "params": [
+              {
+                "name": "ISRC",
+                "value": "USUM71703692",
+                "type": "query",
+                "description": "Search for a ISRC"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based page index (0..N)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the page to be returned"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List and search your own files."
+        },
+        {
+          "info": {
+            "name": "Summary fo your files.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/filesSummary",
+            "params": [
+              {
+                "name": "ISRC",
+                "value": "USUM71703692",
+                "type": "query",
+                "description": "Search for a ISRC"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Summary fo your files."
+        },
+        {
+          "info": {
+            "name": "Status details for files.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/filesStatus",
+            "params": [
+              {
+                "name": "objectKeys",
+                "value": "Example-objectKey",
+                "type": "query",
+                "description": "Comma-separated  list of objectKeys of the files."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Status details for files."
+        },
+        {
+          "info": {
+            "name": "Details and a download link for a file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/user/file/:objectKey",
+            "params": [
+              {
+                "name": "objectKey",
+                "value": "73818371-0963-412e-aa3d-27c2bab952a3",
+                "type": "path",
+                "description": "ObjectKey of the file that should be edited."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Details and a download link for a file."
+        },
+        {
+          "info": {
+            "name": "Delete file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.songtradr.com/api/v1/user/file/:objectKey",
+            "params": [
+              {
+                "name": "objectKey",
+                "value": "73818371-0963-412e-aa3d-27c2bab952a3",
+                "type": "path",
+                "description": "ObjectKey of the file that should be deleted."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete file."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

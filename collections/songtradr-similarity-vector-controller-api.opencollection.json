@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Songtradr Similarity Vector Controller API",
+    "version": "3.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "similarity-vector-controller",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get similarity vector for a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.songtradr.com/api/v1/similarityVectors/:isrcOrTrackId",
+            "params": [
+              {
+                "name": "isrcOrTrackId",
+                "value": "GBAHT0108619",
+                "type": "path",
+                "description": "ISRC or a proprietary track ID."
+              },
+              {
+                "name": "vectorVersion",
+                "value": "",
+                "type": "query",
+                "description": "Version of the similarity vector to be returned. Deprecated, use 'taxonomyVersion' instead."
+              },
+              {
+                "name": "taxonomyVersion",
+                "value": "",
+                "type": "query",
+                "description": "The version of the AI taxonomy to use."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the similarity vector for a recording. The recording is identified by its ISRC or a proprietary track ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

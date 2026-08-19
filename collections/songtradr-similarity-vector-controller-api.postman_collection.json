@@ -1,0 +1,351 @@
+{
+  "item": [
+    {
+      "id": "9aa9ce5c-4341-4b9c-acfa-c4267dda13eb",
+      "name": "similarity-vector-controller",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "567565d9-34bd-4735-a3bb-c0bbb41629af",
+          "name": "Get similarity vector for a recording",
+          "request": {
+            "name": "Get similarity vector for a recording",
+            "description": {
+              "content": "Returns the similarity vector for a recording. The recording is identified by its ISRC or a proprietary track ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "similarityVectors",
+                ":isrcOrTrackId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "vectorVersion",
+                  "value": "<string>",
+                  "description": "Version of the similarity vector to be returned. Deprecated, use 'taxonomyVersion' instead."
+                },
+                {
+                  "disabled": false,
+                  "key": "taxonomyVersion",
+                  "value": "<string>",
+                  "description": "The version of the AI taxonomy to use."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "isrcOrTrackId",
+                  "description": "(Required) ISRC or a proprietary track ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b40e7bc-abeb-4a6a-97bd-96691cb867b6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "similarityVectors",
+                    ":isrcOrTrackId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vectorVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "isrcOrTrackId",
+                      "description": "(Required) ISRC or a proprietary track ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"similarityVector\": [\n    2352.830204415002,\n    302.2908981641792\n  ],\n  \"isrc\": \"string\",\n  \"title\": \"string\",\n  \"artists\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d86e634a-b619-49a9-bbd7-dec4e5711b10",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "similarityVectors",
+                    ":isrcOrTrackId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vectorVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "isrcOrTrackId",
+                      "description": "(Required) ISRC or a proprietary track ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-05-15T13:32:42.291+00:00\",\n  \"status\": 401,\n  \"error\": \"Unauthorized\",\n  \"message\": \"a detailed error message\",\n  \"path\": \"/api/v1/similarityVectors/{isrcOrTrackId}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6e8b8da-0d3c-41c0-a630-f0b64b37cd92",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "similarityVectors",
+                    ":isrcOrTrackId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vectorVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "isrcOrTrackId",
+                      "description": "(Required) ISRC or a proprietary track ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-05-15T13:32:42.291+00:00\",\n  \"status\": 429,\n  \"error\": \"Too Many Requests\",\n  \"message\": \"a detailed error message\",\n  \"path\": \"/api/v1/similarityVectors/{isrcOrTrackId}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed5549c5-72e4-4a1b-b646-31bd0e8deeec",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "similarityVectors",
+                    ":isrcOrTrackId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "vectorVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "taxonomyVersion",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "isrcOrTrackId",
+                      "description": "(Required) ISRC or a proprietary track ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-05-15T13:32:42.291+00:00\",\n  \"status\": 500,\n  \"error\": \"Internal Server Error\",\n  \"message\": \"a detailed error message\",\n  \"path\": \"/api/v1/similarityVectors/{isrcOrTrackId}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.songtradr.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0bb39667-e793-4e87-a7a4-c79c36b37ea0",
+    "name": "Songtradr Similarity Vector Controller API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the Songtradr API. Use it to retrieve deep music metadata and trigger processes like auto-tagging.\n\nYou can also use the API to manage your account and musicube cloud data.\n\n**Authentication**\n\n1. Reach out to support@songtradr.com to receive a free account or use your login data if you are already signed up.\n\n2. To authenticate, you need to login via the POST /api/v1/user/login endpoint.\n\n3. The endpoint responds with a jwtToken which you can use in all following API requests as a bearer token.\n\n**Rate Limiting**\n\nThe current limit is 120 Requests per minute. Reach out to us via support@songtradr.com if you need to request more.\n\n**Getting Started with auto-tagging**\n\n1. If you want to get your own files auto-tagged, use the POST /api/v1/user/file/{name}/initUpload endpoint. It responds with a presigned S3 link where you can upload your file.\n2. You can check the processing status of your file via the GET /api/v1/user/file/{name}/filesStatus endpoint.\n3. As soon as processing is done, you can request the generated data via the GET /api/v1/user/files endpoint.\n\n**Getting Started with search**\n\nYou can either search the released music via the /public/recording endpoints or your own private uploaded music via the /user/file/ endpoints.\n\n1. If you want to search the world's released music, a good starting point is the GET /api/v1/public/recording/search endpoint. Please find the extensive list of parameters that serve as semantic search filters.\n2. If you want to search your own previously uploaded music, a good starting point is the GET GET /api/v1/user/files endpoint. It has the same extensive list of parameters that serve as semantic search filters.\n\nContact Support:\n Name: Songtradr Inc.\n Email: info@songtradr.com",
+      "type": "text/plain"
+    }
+  }
+}

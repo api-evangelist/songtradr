@@ -1,0 +1,191 @@
+openapi: 3.2.0
+info:
+  title: Songtradr Similarity Vector Controller API
+  description: 'This is the Songtradr API. Use it to retrieve deep music metadata and trigger processes like auto-tagging.
+
+
+    You can also use the API to manage your account and musicube cloud data.
+
+
+    **Authentication**
+
+
+    1. Reach out to support@songtradr.com to receive a free account or use your login data if you are already signed up.
+
+
+    2. To authenticate, you need to login via the POST /api/v1/user/login endpoint.
+
+
+    3. The endpoint responds with a jwtToken which you can use in all following API requests as a bearer token.
+
+
+    **Rate Limiting**
+
+
+    The current limit is 120 Requests per minute. Reach out to us via support@songtradr.com if you need to request more.
+
+
+    **Getting Started with auto-tagging**
+
+
+    1. If you want to get your own files auto-tagged, use the POST /api/v1/user/file/{name}/initUpload endpoint. It responds with a presigned S3 link where you can upload your file.
+
+    2. You can check the processing status of your file via the GET /api/v1/user/file/{name}/filesStatus endpoint.
+
+    3. As soon as processing is done, you can request the generated data via the GET /api/v1/user/files endpoint.
+
+
+    **Getting Started with search**
+
+
+    You can either search the released music via the /public/recording endpoints or your own private uploaded music via the /user/file/ endpoints.
+
+
+    1. If you want to search the world''s released music, a good starting point is the GET /api/v1/public/recording/search endpoint. Please find the extensive list of parameters that serve as semantic search filters.
+
+    2. If you want to search your own previously uploaded music, a good starting point is the GET GET /api/v1/user/files endpoint. It has the same extensive list of parameters that serve as semantic search filters.'
+  contact:
+    name: Songtradr Inc.
+    url: https://songtradr.com
+    email: info@songtradr.com
+  version: 3.0.0
+servers:
+- url: https://api.songtradr.com
+  description: Generated server url
+tags:
+- name: similarity-vector-controller
+paths:
+  /api/v1/similarityVectors/{isrcOrTrackId}:
+    get:
+      tags:
+      - similarity-vector-controller
+      summary: Get similarity vector for a recording
+      description: Returns the similarity vector for a recording. The recording is identified by its ISRC or a proprietary track ID.
+      operationId: getSimilarityVector
+      parameters:
+      - name: isrcOrTrackId
+        in: path
+        description: ISRC or a proprietary track ID.
+        required: true
+        schema:
+          type: string
+        example: GBAHT0108619
+      - name: vectorVersion
+        in: query
+        description: Version of the similarity vector to be returned. Deprecated, use 'taxonomyVersion' instead.
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          enum:
+          - v2_4
+      - name: taxonomyVersion
+        in: query
+        description: The version of the AI taxonomy to use.
+        required: false
+        schema:
+          type: string
+          enum:
+          - v2_4
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimilarityVectorDto'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  $ref: '#/components/examples/'
+              example:
+                timestamp: '2026-05-15T13:32:42.291+00:00'
+                status: 401
+                error: Unauthorized
+                message: a detailed error message
+                path: /api/v1/similarityVectors/{isrcOrTrackId}
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  $ref: '#/components/examples/'
+              example:
+                timestamp: '2026-05-15T13:32:42.291+00:00'
+                status: 429
+                error: Too Many Requests
+                message: a detailed error message
+                path: /api/v1/similarityVectors/{isrcOrTrackId}
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+                example:
+                  $ref: '#/components/examples/'
+              example:
+                timestamp: '2026-05-15T13:32:42.291+00:00'
+                status: 500
+                error: Internal Server Error
+                message: a detailed error message
+                path: /api/v1/similarityVectors/{isrcOrTrackId}
+      security:
+      - bearer-jwt: []
+components:
+  schemas:
+    ErrorResponse:
+      description: Bearer token to be used for authentication.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: timestamp
+        status:
+          type: integer
+          format: int32
+          description: HTTP Status code
+        error:
+          type: string
+          description: HTTP status message
+        message:
+          type: string
+          description: detailed error message
+        path:
+          type: string
+          description: path of the called API endpoint
+      required:
+      - error
+      - status
+      - timestamp
+    SimilarityVectorDto:
+      type: object
+      description: Similarity vector for a recording.
+      properties:
+        similarityVector:
+          type: array
+          items:
+            type: number
+            format: float
+        isrc:
+          type: string
+        title:
+          type: string
+        artists:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    bearer-jwt:
+      type: http
+      description: "To authenticate, you have to call POST https://api.songtradr.com/api/v1/user/login \nand use the response's jwtToken as a bearer Token in all following API calls."
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: JWT
