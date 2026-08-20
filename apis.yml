@@ -18,6 +18,18 @@ specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
+- Music
+- Music Licensing
+- Sync Licensing
+- Music Metadata
+- audio-tagging
+- Semantic Search
+- Machine-Learning
+- Media
+- Entertainment
+- Rights Management
+- Audio
+tags_raw:
 - music
 - music-licensing
 - sync-licensing
@@ -81,6 +93,8 @@ apis:
   humanURL: https://api.songtradr.com/swagger-ui.html
   baseURL: https://api.songtradr.com
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
