@@ -30,16 +30,16 @@ specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
-- Music
-- Music Licensing
-- Sync Licensing
-- Music Metadata
+- music
+- music-licensing
+- sync-licensing
+- music-metadata
 - audio-tagging
-- Semantic Search
-- Machine-Learning
+- semantic-search
+- machine-learning
 - Media
-- Entertainment
-- Rights Management
+- entertainment
+- rights-management
 - Audio
 tags_raw:
 - music
