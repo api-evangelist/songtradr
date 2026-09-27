@@ -50,7 +50,7 @@ tags:
 - Music Metadata
 - audio-tagging
 - Semantic Search
-- Machine-Learning
+- Machine Learning
 - Media
 - Entertainment
 - Rights Management
@@ -67,6 +67,7 @@ tags_raw:
 - entertainment
 - rights-management
 - audio
+- Machine-Learning
 apis:
 - aid: songtradr:songtradr-allowed-values-api
   name: Songtradr Allowed Values API
