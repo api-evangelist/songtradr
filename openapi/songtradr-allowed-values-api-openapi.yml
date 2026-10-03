@@ -92,30 +92,6 @@ paths:
                 path: /api/v1/allowedValues/musicalFeatures
 components:
   schemas:
-    ErrorResponse:
-      description: Bearer token to be used for authentication.
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: timestamp
-        status:
-          type: integer
-          format: int32
-          description: HTTP Status code
-        error:
-          type: string
-          description: HTTP status message
-        message:
-          type: string
-          description: detailed error message
-        path:
-          type: string
-          description: path of the called API endpoint
-      required:
-      - error
-      - status
-      - timestamp
     SearchFilterValuesDTO:
       type: object
       description: Categories of musical features that can be used as search filters.
@@ -366,6 +342,30 @@ components:
       - useCase
       - valence
       - vocals
+    ErrorResponse:
+      description: Bearer token to be used for authentication.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: timestamp
+        status:
+          type: integer
+          format: int32
+          description: HTTP Status code
+        error:
+          type: string
+          description: HTTP status message
+        message:
+          type: string
+          description: detailed error message
+        path:
+          type: string
+          description: path of the called API endpoint
+      required:
+      - error
+      - status
+      - timestamp
   securitySchemes:
     bearer-jwt:
       type: http

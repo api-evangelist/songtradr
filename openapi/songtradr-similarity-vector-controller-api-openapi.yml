@@ -98,23 +98,6 @@ paths:
       - bearer-jwt: []
 components:
   schemas:
-    SimilarityVectorDto:
-      type: object
-      description: Similarity vector for a recording.
-      properties:
-        similarityVector:
-          type: array
-          items:
-            type: number
-            format: float
-        isrc:
-          type: string
-        title:
-          type: string
-        artists:
-          type: array
-          items:
-            type: string
     ErrorResponse:
       description: Bearer token to be used for authentication.
       properties:
@@ -139,6 +122,23 @@ components:
       - error
       - status
       - timestamp
+    SimilarityVectorDto:
+      type: object
+      description: Similarity vector for a recording.
+      properties:
+        similarityVector:
+          type: array
+          items:
+            type: number
+            format: float
+        isrc:
+          type: string
+        title:
+          type: string
+        artists:
+          type: array
+          items:
+            type: string
   securitySchemes:
     bearer-jwt:
       type: http
