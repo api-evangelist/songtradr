@@ -1,0 +1,12 @@
+{
+ "url": "https://api.songtradr.com/v3/api-docs",
+ "requested_url": "https://api.songtradr.com/v3/api-docs",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 76294,
+ "sha256": "bc26fc970489e4d0cfe004334ec982447c48293cd1c70d75db6e9fdffed6f2d1",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
