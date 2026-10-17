@@ -1566,59 +1566,66 @@ paths:
       - bearer-jwt: []
 components:
   schemas:
-    JwtTokenDTO:
+    RecordingGenrePredictionV24DTO:
       type: object
-      description: Bearer token to be used for authentication.
+      description: AI-predicted Genres for a recording
       properties:
-        jwtToken:
+        genreName:
           type: string
-        expirationDate:
+        genreType:
           type: string
-          format: date-time
+          enum:
+          - level1Genre
+          - level2Genre
+        probability:
+          type: number
+          format: float
+      required:
+      - genreName
+      - genreType
+      - probability
+    TagstrengthDTO:
+      type: object
+      description: A TaggramDTO for recordings.
+      properties:
+        strength:
+          type: number
+          format: float
+          description: Strength of presence of the corresponding category, tag or genre.
+        categoryName:
+          type: string
+        tagName:
+          type: string
+        genreName:
+          type: string
+        scale:
+          type: array
+          items:
+            type: integer
+            format: int32
+      required:
+      - categoryName
+      - strength
+    RecordingPartyDTO:
+      type: object
+      description: Party (person, group or organization) that contributed to a recording.
+      properties:
+        party:
+          $ref: '#/components/schemas/PartySmallDTO'
+        contributorTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContributorTypeDTO'
+      required:
+      - party
+    TokenRequest:
+      type: object
+      properties:
         refreshToken:
           type: string
+          minLength: 1
       required:
-      - expirationDate
-      - jwtToken
-    TagsSummaryDTO:
-      type: object
-      description: Summary of tags occuring in files.
-      properties:
-        name:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryMinimalDTO'
-        total:
-          type: integer
-          format: int32
-      required:
-      - name
-      - total
-    InitPutRecordingAudioDTO:
-      type: object
-      description: Object that specifies where to upload a file so it can be processed.
-      properties:
-        isrc:
-          type: string
-          deprecated: true
-        objectKey:
-          type: string
-        url:
-          type: string
-    RecordingMinimalWithTagstrengthsDTO:
-      type: object
-      description: Recording in its minimal form, but with AI-predicted musical features.
-      properties:
-        isrc:
-          type: string
-        tagstrengths:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagstrengthDTO'
-      required:
-      - isrc
+      - refreshToken
     ConfigAccessDTO:
       type: object
       description: Specify access rights.
@@ -1638,6 +1645,59 @@ components:
       required:
       - accessorId
       - rights
+    FileListDTO:
+      type: object
+      description: List of files.
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileDTO'
+        hasNextPage:
+          type: boolean
+        currentPageNumber:
+          type: integer
+          format: int32
+        totalResults:
+          type: integer
+          format: int64
+      required:
+      - currentPageNumber
+      - files
+      - hasNextPage
+      - totalResults
+    TitleDTO:
+      type: object
+      description: A Title for recordings or products.
+      properties:
+        titleText:
+          type: string
+      required:
+      - titleText
+    ErrorResponse:
+      description: Bearer token to be used for authentication.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: timestamp
+        status:
+          type: integer
+          format: int32
+          description: HTTP Status code
+        error:
+          type: string
+          description: HTTP status message
+        message:
+          type: string
+          description: detailed error message
+        path:
+          type: string
+          description: path of the called API endpoint
+      required:
+      - error
+      - status
+      - timestamp
     FileSmallDTO:
       type: object
       description: Reduced details on a file that has been uploaded for auto-tagging or audio-recognition purposes.
@@ -1704,63 +1764,104 @@ components:
       - id
       - name
       - objectKey
-    GenreDTO:
+    FileDTO:
       type: object
-      description: Genre including its sub-genres.
+      description: Details on a file that has been uploaded for auto-tagging or audio-recognition purposes.
       properties:
         id:
           type: integer
           format: int32
+          deprecated: true
         name:
           type: string
+        objectKey:
+          type: string
+        folder:
+          type: string
+        extension:
+          type: string
+          description: extension of the file
+          enum:
+          - mp3
+          - wav
+          - flac
+        url:
+          type: string
+        uploadStartTime:
+          type: string
+          format: date-time
+        uploadEndTime:
+          type: string
+          format: date-time
+        fingerprintStatus:
+          type: string
+          description: status of the audio recognition
+          enum:
+          - processing
+          - error
+          - found
+          - not_found
+          - not_started
+        fingerprintStartTime:
+          type: string
+          format: date-time
+        fingerprintEndTime:
+          type: string
+          format: date-time
+        inferenceStatus:
+          type: string
+          description: status of the auto-tagging
+          enum:
+          - processing
+          - error
+          - done
+          - not_started
+        inferenceStartTime:
+          type: string
+          format: date-time
+        inferenceEndTime:
+          type: string
+          format: date-time
+        recording:
+          $ref: '#/components/schemas/RecordingMediumBaseDTO'
+        error_time:
+          type: string
+          format: date-time
+        error_message:
+          type: string
       required:
+      - extension
+      - folder
       - id
       - name
-    RecordingMinimalWithTaggramsDTO:
+      - objectKey
+    RecordingMinimalWithTagstrengthsDTO:
       type: object
       description: Recording in its minimal form, but with AI-predicted musical features.
       properties:
         isrc:
           type: string
-        timestamps:
-          type: array
-          description: Points in time in seconds. Each value refers to the taggrams values of the same index.
-          items:
-            type: number
-            format: float
-        taggrams:
+        tagstrengths:
           type: array
           items:
-            $ref: '#/components/schemas/TaggramDTO'
+            $ref: '#/components/schemas/TagstrengthDTO'
       required:
       - isrc
-    UpdatePasswordDTO:
+    LoginDTO:
       type: object
+      description: Credentials to be used to retrieve bearer token for authentication.
       properties:
-        token:
+        username:
           type: string
-          minLength: 1
+        version:
+          type: string
+        email:
+          type: string
         password:
           type: string
-          minLength: 1
       required:
+      - email
       - password
-      - token
-    FieldSummaryDTO:
-      type: object
-      description: Summary of genres occuring in files.
-      properties:
-        fieldValue:
-          type: string
-        total:
-          type: integer
-          format: int64
-        fieldName:
-          type: string
-      required:
-      - fieldName
-      - fieldValue
-      - total
     TagDTO:
       type: object
       description: A tag for recordings.
@@ -1777,122 +1878,6 @@ components:
       required:
       - id
       - name
-    LoginDTO:
-      type: object
-      description: Credentials to be used to retrieve bearer token for authentication.
-      properties:
-        username:
-          type: string
-        version:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-      required:
-      - email
-      - password
-    RecordingMediumBaseDTO:
-      type: object
-      properties:
-        recordingPartyEntities:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecordingPartyDTO'
-          uniqueItems: true
-        spotifyId:
-          type: string
-        releaseDate:
-          type: string
-          format: date-time
-        languageOfPerformance:
-          type: string
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/RecordingTagSmallDTO'
-        inferenceUpdatedAt:
-          type: string
-          format: date-time
-        isrc:
-          type: string
-        titles:
-          type: array
-          items:
-            $ref: '#/components/schemas/TitleDTO'
-          uniqueItems: true
-        tracks:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrackDTO'
-        genres:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenreDTO'
-          uniqueItems: true
-      required:
-      - isrc
-    CategoryMinimalDTO:
-      type: object
-      description: A category of tags in its minimal form.
-      properties:
-        categoryName:
-          type: string
-      required:
-      - categoryName
-    TokenRequest:
-      type: object
-      properties:
-        refreshToken:
-          type: string
-          minLength: 1
-      required:
-      - refreshToken
-    ContributorTypeDTO:
-      type: object
-      description: A type of contribution a party (person, group or organization) had on a recording or product.
-      properties:
-        typeName:
-          type: string
-      required:
-      - typeName
-    RecordingGenrePredictionV24DTO:
-      type: object
-      description: AI-predicted Genres for a recording
-      properties:
-        genreName:
-          type: string
-        genreType:
-          type: string
-          enum:
-          - level1Genre
-          - level2Genre
-        probability:
-          type: number
-          format: float
-      required:
-      - genreName
-      - genreType
-      - probability
-    RecordingTagSmallDTO:
-      type: object
-      description: Tag information in with a small field-set.
-      properties:
-        tag:
-          $ref: '#/components/schemas/TagDTO'
-      required:
-      - tag
-    FileWIthUrlDTO:
-      type: object
-      description: Details on a file that has been uploaded for auto-tagging or audio-recognition purposes. including download path.
-      properties:
-        file:
-          $ref: '#/components/schemas/FileDTO'
-        url:
-          type: string
-      required:
-      - file
-      - url
     ForgotPasswordDTO:
       type: object
       properties:
@@ -1906,205 +1891,6 @@ components:
           - cloud
       required:
       - emailOrUsername
-    TaggramDTO:
-      type: object
-      description: A TaggramDTO for recordings.
-      properties:
-        timeseries:
-          type: array
-          description: Values represent the strength of presence of the corresponding category, tag or genre.
-          items:
-            type: number
-            format: float
-        categoryName:
-          type: string
-        tagName:
-          type: string
-        genreName:
-          type: string
-        scale:
-          type: array
-          items:
-            type: integer
-            format: int32
-      required:
-      - categoryName
-      - timeseries
-    FilesSummaryDTO:
-      type: object
-      description: Summary of content of files
-      properties:
-        fileDetailsSummary:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldSummaryDTO'
-        genreSummary:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenresSummaryDTO'
-        tagSummary:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagsSummaryDTO'
-        musicalFeaturesSummary:
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldSummaryDTO'
-        totalFiles:
-          type: integer
-          format: int32
-        bpmMin:
-          type: number
-          format: float
-        bpmMax:
-          type: number
-          format: float
-      required:
-      - totalFiles
-    ConfigIdentifierDTO:
-      type: object
-      description: Key-Value Pairs to specify and identifier.
-      properties:
-        identifierType:
-          type: string
-        identifierValue:
-          type: string
-      required:
-      - identifierType
-      - identifierValue
-    FileListDTO:
-      type: object
-      description: List of files.
-      properties:
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/FileDTO'
-        hasNextPage:
-          type: boolean
-        currentPageNumber:
-          type: integer
-          format: int32
-        totalResults:
-          type: integer
-          format: int64
-      required:
-      - currentPageNumber
-      - files
-      - hasNextPage
-      - totalResults
-    RecordingPartyDTO:
-      type: object
-      description: Party (person, group or organization) that contributed to a recording.
-      properties:
-        party:
-          $ref: '#/components/schemas/PartySmallDTO'
-        contributorTypes:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContributorTypeDTO'
-      required:
-      - party
-    ErrorResponse:
-      description: Bearer token to be used for authentication.
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: timestamp
-        status:
-          type: integer
-          format: int32
-          description: HTTP Status code
-        error:
-          type: string
-          description: HTTP status message
-        message:
-          type: string
-          description: detailed error message
-        path:
-          type: string
-          description: path of the called API endpoint
-      required:
-      - error
-      - status
-      - timestamp
-    SignUpDTO:
-      type: object
-      description: Credentials for sign-up to musicube the API and Website.
-      properties:
-        emailAddress:
-          type: string
-        password:
-          type: string
-        fullName:
-          type: string
-        companyName:
-          type: string
-      required:
-      - emailAddress
-      - fullName
-      - password
-    FileUploadDTO:
-      type: object
-      description: Details on content, ownership, purpose and access rights of a file to be uploaded.
-      properties:
-        identifiers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigIdentifierDTO'
-        flags:
-          type: array
-          items:
-            type: string
-        access:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConfigAccessDTO'
-    GenresSummaryDTO:
-      type: object
-      description: Summary of genres occuring in files.
-      properties:
-        name:
-          type: string
-        total:
-          type: integer
-          format: int64
-        genreType:
-          type: string
-      required:
-      - name
-      - total
-    TitleDTO:
-      type: object
-      description: A Title for recordings or products.
-      properties:
-        titleText:
-          type: string
-      required:
-      - titleText
-    TagstrengthDTO:
-      type: object
-      description: A TaggramDTO for recordings.
-      properties:
-        strength:
-          type: number
-          format: float
-          description: Strength of presence of the corresponding category, tag or genre.
-        categoryName:
-          type: string
-        tagName:
-          type: string
-        genreName:
-          type: string
-        scale:
-          type: array
-          items:
-            type: integer
-            format: int32
-      required:
-      - categoryName
-      - strength
     UserDTO:
       type: object
       description: All details on a user.
@@ -2177,6 +1963,100 @@ components:
       - soundFeaturesAllowed
       - tonalFeaturesAllowed
       - username
+    FilesSummaryDTO:
+      type: object
+      description: Summary of content of files
+      properties:
+        fileDetailsSummary:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldSummaryDTO'
+        genreSummary:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenresSummaryDTO'
+        tagSummary:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagsSummaryDTO'
+        musicalFeaturesSummary:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldSummaryDTO'
+        totalFiles:
+          type: integer
+          format: int32
+        bpmMin:
+          type: number
+          format: float
+        bpmMax:
+          type: number
+          format: float
+      required:
+      - totalFiles
+    PartySmallDTO:
+      type: object
+      description: Party (person, group or organization) with a small field-set.
+      properties:
+        id:
+          type: string
+        fullName:
+          type: string
+      required:
+      - fullName
+      - id
+    GenresSummaryDTO:
+      type: object
+      description: Summary of genres occuring in files.
+      properties:
+        name:
+          type: string
+        total:
+          type: integer
+          format: int64
+        genreType:
+          type: string
+      required:
+      - name
+      - total
+    GenreDTO:
+      type: object
+      description: Genre including its sub-genres.
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+      required:
+      - id
+      - name
+    UpdatePasswordDTO:
+      type: object
+      properties:
+        token:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          minLength: 1
+      required:
+      - password
+      - token
+    JwtTokenDTO:
+      type: object
+      description: Bearer token to be used for authentication.
+      properties:
+        jwtToken:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+        refreshToken:
+          type: string
+      required:
+      - expirationDate
+      - jwtToken
     MusicalFeaturesV24DTO:
       type: object
       description: AI generated musical features of a recording for AI taxonomy version 2.4.
@@ -3235,6 +3115,103 @@ components:
           items:
             type: number
             format: float
+    InitPutRecordingAudioDTO:
+      type: object
+      description: Object that specifies where to upload a file so it can be processed.
+      properties:
+        isrc:
+          type: string
+          deprecated: true
+        objectKey:
+          type: string
+        url:
+          type: string
+    TrackDTO:
+      type: object
+      description: A track that connects from recording to a product with a mid-sized field set.
+      properties:
+        songtradrTrackId:
+          type: string
+    RecordingMediumBaseDTO:
+      type: object
+      properties:
+        recordingPartyEntities:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordingPartyDTO'
+          uniqueItems: true
+        spotifyId:
+          type: string
+        releaseDate:
+          type: string
+          format: date-time
+        languageOfPerformance:
+          type: string
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecordingTagSmallDTO'
+        inferenceUpdatedAt:
+          type: string
+          format: date-time
+        isrc:
+          type: string
+        titles:
+          type: array
+          items:
+            $ref: '#/components/schemas/TitleDTO'
+          uniqueItems: true
+        tracks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrackDTO'
+        genres:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenreDTO'
+          uniqueItems: true
+      required:
+      - isrc
+    TaggramDTO:
+      type: object
+      description: A TaggramDTO for recordings.
+      properties:
+        timeseries:
+          type: array
+          description: Values represent the strength of presence of the corresponding category, tag or genre.
+          items:
+            type: number
+            format: float
+        categoryName:
+          type: string
+        tagName:
+          type: string
+        genreName:
+          type: string
+        scale:
+          type: array
+          items:
+            type: integer
+            format: int32
+      required:
+      - categoryName
+      - timeseries
+    SignUpDTO:
+      type: object
+      description: Credentials for sign-up to musicube the API and Website.
+      properties:
+        emailAddress:
+          type: string
+        password:
+          type: string
+        fullName:
+          type: string
+        companyName:
+          type: string
+      required:
+      - emailAddress
+      - fullName
+      - password
     SaveUserDTO:
       type: object
       description: Credentials for sign-up to musicube the API and Website.
@@ -3260,17 +3237,117 @@ components:
           - de
       required:
       - emailAddress
-    PartySmallDTO:
+    FieldSummaryDTO:
       type: object
-      description: Party (person, group or organization) with a small field-set.
+      description: Summary of genres occuring in files.
       properties:
-        id:
+        fieldValue:
           type: string
-        fullName:
+        total:
+          type: integer
+          format: int64
+        fieldName:
           type: string
       required:
-      - fullName
-      - id
+      - fieldName
+      - fieldValue
+      - total
+    RecordingTagSmallDTO:
+      type: object
+      description: Tag information in with a small field-set.
+      properties:
+        tag:
+          $ref: '#/components/schemas/TagDTO'
+      required:
+      - tag
+    CategoryMinimalDTO:
+      type: object
+      description: A category of tags in its minimal form.
+      properties:
+        categoryName:
+          type: string
+      required:
+      - categoryName
+    ContributorTypeDTO:
+      type: object
+      description: A type of contribution a party (person, group or organization) had on a recording or product.
+      properties:
+        typeName:
+          type: string
+      required:
+      - typeName
+    ConfigIdentifierDTO:
+      type: object
+      description: Key-Value Pairs to specify and identifier.
+      properties:
+        identifierType:
+          type: string
+        identifierValue:
+          type: string
+      required:
+      - identifierType
+      - identifierValue
+    FileUploadDTO:
+      type: object
+      description: Details on content, ownership, purpose and access rights of a file to be uploaded.
+      properties:
+        identifiers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigIdentifierDTO'
+        flags:
+          type: array
+          items:
+            type: string
+        access:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConfigAccessDTO'
+    TagsSummaryDTO:
+      type: object
+      description: Summary of tags occuring in files.
+      properties:
+        name:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryMinimalDTO'
+        total:
+          type: integer
+          format: int32
+      required:
+      - name
+      - total
+    FileWIthUrlDTO:
+      type: object
+      description: Details on a file that has been uploaded for auto-tagging or audio-recognition purposes. including download path.
+      properties:
+        file:
+          $ref: '#/components/schemas/FileDTO'
+        url:
+          type: string
+      required:
+      - file
+      - url
+    RecordingMinimalWithTaggramsDTO:
+      type: object
+      description: Recording in its minimal form, but with AI-predicted musical features.
+      properties:
+        isrc:
+          type: string
+        timestamps:
+          type: array
+          description: Points in time in seconds. Each value refers to the taggrams values of the same index.
+          items:
+            type: number
+            format: float
+        taggrams:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaggramDTO'
+      required:
+      - isrc
     RecordingMediumV24DTO:
       type: object
       description: Recording with a mid-sized field set for AI taxonomy version 2.4.
@@ -3319,83 +3396,6 @@ components:
           $ref: '#/components/schemas/MusicalFeaturesV24DTO'
       required:
       - isrc
-    TrackDTO:
-      type: object
-      description: A track that connects from recording to a product with a mid-sized field set.
-      properties:
-        songtradrTrackId:
-          type: string
-    FileDTO:
-      type: object
-      description: Details on a file that has been uploaded for auto-tagging or audio-recognition purposes.
-      properties:
-        id:
-          type: integer
-          format: int32
-          deprecated: true
-        name:
-          type: string
-        objectKey:
-          type: string
-        folder:
-          type: string
-        extension:
-          type: string
-          description: extension of the file
-          enum:
-          - mp3
-          - wav
-          - flac
-        url:
-          type: string
-        uploadStartTime:
-          type: string
-          format: date-time
-        uploadEndTime:
-          type: string
-          format: date-time
-        fingerprintStatus:
-          type: string
-          description: status of the audio recognition
-          enum:
-          - processing
-          - error
-          - found
-          - not_found
-          - not_started
-        fingerprintStartTime:
-          type: string
-          format: date-time
-        fingerprintEndTime:
-          type: string
-          format: date-time
-        inferenceStatus:
-          type: string
-          description: status of the auto-tagging
-          enum:
-          - processing
-          - error
-          - done
-          - not_started
-        inferenceStartTime:
-          type: string
-          format: date-time
-        inferenceEndTime:
-          type: string
-          format: date-time
-        recording:
-          $ref: '#/components/schemas/RecordingMediumBaseDTO'
-        error_time:
-          type: string
-          format: date-time
-        error_message:
-          type: string
-      required:
-      - extension
-      - folder
-      - id
-      - name
-      - objectKey
   securitySchemes:
     bearer-jwt:
       type: http
