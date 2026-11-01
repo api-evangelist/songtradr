@@ -64,36 +64,128 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Songtradr is a Santa Monica, California B2B music company that builds licensing, rights and
-music-data infrastructure for brands, agencies, digital platforms, artists and rightsholders.
-Founded in 2014, it operates a global sync-licensing marketplace alongside acquired businesses
-including Bandcamp, 7digital, MassiveMusic, Big Sync Music and the AI music-metadata company
-Musicube.
+Songtradr is a Santa Monica, California B2B music company that builds licensing, rights and music-data infrastructure for brands, agencies, digital platforms, artists and rightsholders. Founded in 2014, it operates a global sync-licensing marketplace alongside acquired businesses including Bandcamp, 7digital, MassiveMusic, Big Sync Music and the AI music-metadata company Musicube. Its public developer surface is the Songtradr API — a JWT-authenticated REST API, documented with a live OpenAPI 3.1 description, that returns deep music metadata (musical features, genre predictions, tags, taggrams, tag strengths, contributors, similarity vectors) and drives auto-tagging: rightsholders upload audio through a presigned S3 link and Songtradr's models classify it against a taxonomy of 350+ descriptive tags across 30+ categories, then expose semantic search over the results. First-party API clients are published for Python, JavaScript/Node and Ruby.
 
-Its public developer surface is the **Songtradr API** — a JWT-authenticated REST API described by a
-live OpenAPI 3.1 document at `https://api.songtradr.com/v3/api-docs` (rendered at
-`https://api.songtradr.com/swagger-ui.html`). It returns deep music metadata — musical features,
-genre predictions, tags, taggrams, tag strengths, contributors and similarity vectors — and drives
-auto-tagging: rightsholders upload audio through a presigned S3 link, Songtradr's models classify
-it, and the results become semantically searchable. Rate limited to 120 requests per minute.
+**Areas:** Music · Music Licensing · Sync Licensing · Music Metadata · audio-tagging · Semantic Search · Machine Learning · Media · Entertainment · Rights Management · Audio
 
-- Website: https://www.songtradr.com/
-- API reference: https://api.songtradr.com/swagger-ui.html
-- OpenAPI: https://api.songtradr.com/v3/api-docs
-- GitHub: https://github.com/songtradr
-- Support: https://support.songtradr.com/hc/en-us
+## Songtradr on APIs.io
 
-## Clients
+Everything profiled for Songtradr is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/songtradr/](https://apis.io/providers/songtradr/)** — or go straight to one of the APIs or properties below.
 
-| Language | Package | Version |
-|---|---|---|
-| Python | [songtradr-api-client-python](https://pypi.org/project/songtradr-api-client-python/) | 3.0.0 |
-| JavaScript | [songtradr-api-client](https://www.npmjs.com/package/songtradr-api-client) | 3.0.1 |
-| Ruby | [songtradr_api_client_ruby](https://rubygems.org/gems/songtradr_api_client_ruby) | 2.1.0 |
+### APIs (3)
 
-## Notes
+- [Songtradr Allowed Values API](https://apis.io/apis/songtradr/songtradr-allowed-values-api/) — The allowed-values API from Songtradr — 1 operation(s) for allowed-values.
+- [Songtradr Similarity Vector Controller API](https://apis.io/apis/songtradr/songtradr-similarity-vector-controller-api/) — The similarity-vector-controller API from Songtradr — 1 operation(s) for similarity-vector-controller.
+- [Songtradr User API](https://apis.io/apis/songtradr/songtradr-user-api/) — The user API from Songtradr — 15 operation(s) for user.
 
-No GraphQL, no MCP server, no A2A agent card, no webhooks or event stream, no `/.well-known/`
-documents, no status page, no published deprecation policy and no compliance/trust program were
-found on the public surface. Errors use the Spring Boot envelope rather than RFC 9457, and there is
-no idempotency contract.
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [songtradr](https://apis.io/servers/songtradr/songtradr/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Songtradr Agentic Access](https://apis.io/agentic-access/songtradr/songtradr-agentic-access/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [Songtradr Allowed Values API](https://apis.io/collections/songtradr/open-songtradr-allowed-values-api/)
+- [Songtradr Similarity Vector Controller API](https://apis.io/collections/songtradr/open-songtradr-similarity-vector-controller-api/)
+- [Songtradr User API](https://apis.io/collections/songtradr/open-songtradr-user-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Songtradr Api Overlay](https://apis.io/overlays/songtradr/songtradr-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Songtradr Authentication](https://apis.io/security/songtradr/songtradr-authentication/)
+- [Songtradr Domain Security](https://apis.io/security/songtradr/songtradr-domain-security/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Songtradr Rate Limits](https://apis.io/rate-limits/songtradr/songtradr-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.songtradr.com/)
+- [Documentation](https://api.songtradr.com/swagger-ui.html)
+- [Getting started](https://api.songtradr.com/swagger-ui.html)
+- [API reference](https://api.songtradr.com/v3/api-docs)
+- [Pricing](https://www.songtradr.com/pro)
+- [Sign up](https://www.songtradr.com/signup/personal)
+- [Support](https://support.songtradr.com/hc/en-us)
+- [Blog](https://www.songtradr.com/blog)
+- [Terms of service](https://www.songtradr.com/legals/termsofuse)
+- [Privacy policy](https://www.songtradr.com/legals/privacypolicy)
+- [GitHub](https://github.com/songtradr)
+
+## API Evangelist rating
+
+**Kin Score 34.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 49.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 49.4 |
+| Access clarity | 6.6 |
+
+**Agent readiness 31.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/songtradr/](https://apis.io/providers/songtradr/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Songtradr: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/songtradr/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
